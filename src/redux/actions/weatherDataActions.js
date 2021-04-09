@@ -9,37 +9,8 @@ function loadWeatherData(){
   return async (dispatch) => {
     try {
       const data = await weatherDataApi()
-      console.log(data);
-      // const { meals } = data
       if (data) {
-        // const {
-        //   strMeal: name,
-        //   strMealThumb: image,
-        //   strArea: info,
-        //   strCategory: category,
-        //   strInstructions: instructions,
-        //   strIngredient1,
-        //   strIngredient2,
-        //   strIngredient3,
-        //   strIngredient4,
-        //   strIngredient5,
-        // } = meals[0]
-        // const ingredients = [
-        //   strIngredient1,
-        //   strIngredient2,
-        //   strIngredient3,
-        //   strIngredient4,
-        //   strIngredient5,
-        // ]
-        // const newMeal = {
-        //   name,
-        //   image,
-        //   info,
-        //   category,
-        //   instructions,
-        //   ingredients,
-        // }
-        dispatch(loadWeatherSuccess(data))
+        dispatch(loadWeatherSuccess(data.list))
       } else {
         dispatch(loadWeatherSuccess(null))
       }
