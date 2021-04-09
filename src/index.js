@@ -1,26 +1,17 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
-import { BrowserRouter } from 'react-router-dom'
+import {render} from 'react-dom'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import rootReducer from './reducer'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import configureStore from './redux/configureStore'
 
-const initialState = {
-  Loading: false,
-}
+const store = configureStore();
 
-const store = createStore(rootReducer, initialState, applyMiddleware(thunk))
-
-ReactDOM.render(
+render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
         <App />
-      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
