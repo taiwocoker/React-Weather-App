@@ -1,14 +1,15 @@
 import { toast } from 'react-toastify'
 import * as types from './actionTypes'
-import * as weatherDataApi from '../../api/weatherDataApi'
+import weatherDataApi from '../../api/weatherDataApi'
 export const loadWeatherSuccess = (weatherData) => ({
   type: types.SET_WEATHER_DATA,
   weatherData,
 })
-export function loadWeatherData() {
+function loadWeatherData(){
   return async (dispatch) => {
     try {
       const data = await weatherDataApi()
+      console.log(data);
       // const { meals } = data
       if (data) {
         // const {
@@ -47,3 +48,4 @@ export function loadWeatherData() {
     }
   }
 }
+export default loadWeatherData;
