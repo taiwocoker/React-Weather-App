@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes'
 import initialState from './initialState'
-export default (state = initialState.weatherData, action) => {
+const WeatherDataReducer = (state = initialState.weatherData, action) => {
   switch (action.type) {
     case types.SET_WEATHER_DATA:
       return action.weatherData
@@ -8,3 +8,4 @@ export default (state = initialState.weatherData, action) => {
       return state
   }
 }
+export default WeatherDataReducer;
