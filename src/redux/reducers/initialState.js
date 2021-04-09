@@ -1,4 +1,4 @@
 export default {
   loading: true,
-  weatherData: {},
+  weatherData: [],
 }
