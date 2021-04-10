@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 import LoadingAction from '../redux/actions/loadingActions'
+import { dateConverter } from '../helpers/dateConverter';
 
 const WeatherInfo = () => {
   const [currentTemp, setCurrentTemp] = useState('fah')
@@ -41,30 +42,30 @@ const WeatherInfo = () => {
       </div>
       <section className='d-flex justify-content-between'>
         {weatherData.ForecastData.map((data, index) => {
-         const date = new Date(data.dt*1000).toDateString()
-         return (
-           <article key={index} className='border '>
-             {currentTemp === 'fah' ? (
-               <>
-                 <p>{`Temp: ${(
-                   ((data.main.temp - 273.15) * 9) / 5 +
-                   32
-                 ).toFixed(1)}F`}</p>
-                 <p>{date}</p>
-                 <p>{data.weather[0].main}</p>
-                 <p>{data.weather[0].description}</p>
-               </>
-             ) : (
-               <>
-                 <small>{`Temp: ${(data.main.temp - 273.15).toFixed(
-                   1
-                 )}C`}</small>
-                 <small>{date}</small>
-               </>
-             )}
-           </article>
-         )
-})}
+          return (
+            <article key={index} className='border '>
+              {currentTemp === 'fah' ? (
+                <>
+                  <p>{`Temp: ${(
+                    ((data.main.temp - 273.15) * 9) / 5 +
+                    32
+                  ).toFixed(1)}F`}</p>
+                  <p>{dateConverter(data.dt).dateFormat}</p>
+                  <p>{data.weather[0].main}</p>
+                  <p>{data.weather[0].description}</p>
+                </>
+              ) : (
+                <>
+                  <small>{`Temp: ${(data.main.temp - 273.15).toFixed(
+                    1
+                  )}C`}</small>
+
+                  <small>{dateConverter(data.dt).dateFormat}</small>
+                </>
+              )}
+            </article>
+          )
+        })}
       </section>
     </>
   )
