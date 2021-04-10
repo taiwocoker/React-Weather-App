@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 import LoadingAction from '../redux/actions/loadingActions'
-import { dateConverter } from '../helpers/dateConverter';
+import { dateConverter } from '../helpers/dateConverter'
 
 const WeatherInfo = () => {
   const [currentTemp, setCurrentTemp] = useState('fah')
@@ -11,12 +11,25 @@ const WeatherInfo = () => {
     ForecastData,
     Loading,
   }))
+
+  const [weatherState, setWeatherState] = useState({
+    indices: [],
+  })
+
   useEffect(() => {
     dispatch(WeatherDataAction())
     dispatch(LoadingAction(false))
   }, [])
 
-  if (weatherData.Loading) return <h1>Loading...</h1>
+  useEffect(() => {
+    console.log(weatherData, weatherState)
+    setWeatherState({
+      indices: Object.keys(weatherData.ForecastData),
+    })
+  }, [weatherData.ForecastData])
+
+
+  // if (weatherData.Loading) return <h1>Loading...</h1>
 
   return (
     <>
@@ -41,7 +54,7 @@ const WeatherInfo = () => {
         <br />
       </div>
       <section className='d-flex justify-content-between'>
-        {weatherData.ForecastData.map((data, index) => {
+        {/* {weatherData.ForecastData.map((data, index) => {
           return (
             <article key={index} className='border '>
               {currentTemp === 'fah' ? (
@@ -65,7 +78,7 @@ const WeatherInfo = () => {
               )}
             </article>
           )
-        })}
+        })} */}
       </section>
     </>
   )

@@ -12,7 +12,7 @@ function loadWeatherData(){
       if (data) {
         dispatch(loadWeatherSuccess(data.list))
       } else {
-        dispatch(loadWeatherSuccess(null))
+        dispatch(loadWeatherSuccess({}))
       }
     } catch (error) {
       toast.error(`Whoops!, ${error.message} occured`)
