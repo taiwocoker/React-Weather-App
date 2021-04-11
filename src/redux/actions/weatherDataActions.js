@@ -18,8 +18,10 @@ function loadWeatherData() {
           outputData.push(data[i])
         }
         dispatch(loadWeatherSuccess(outputData))
+        dispatch(LoadingAction(false))
       } else {
         dispatch(loadWeatherSuccess(null))
+        dispatch(LoadingAction(false))
       }
     } catch (error) {
       toast.error(`Whoops!, ${error.message} occured`)

@@ -4,6 +4,7 @@ import WeatherDataAction from '../redux/actions/weatherDataActions'
 import LoadingAction from '../redux/actions/loadingActions'
 import { Paginate } from '../helpers/Pagination'
 import WeatherInfo from './weatherInfo'
+import Loader from 'react-loader-spinner'
 
 const WeatherInfos = () => {
   const [currentTemp, setCurrentTemp] = useState('f')
@@ -18,7 +19,6 @@ const WeatherInfos = () => {
 
   useEffect(() => {
     dispatch(WeatherDataAction())
-    dispatch(LoadingAction(false))
   }, [])
 
   useEffect(() => {
@@ -51,7 +51,26 @@ const WeatherInfos = () => {
     })
   }
 
-  if (weatherData.Loading) return <h1>Getting Weather Data...</h1>
+  if (weatherData.Loading)
+    return (
+      <div
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Loader
+          type='Puff'
+          color='#00BFFF'
+          height={100}
+          width={100}
+          // timeout={000} //3 secs
+        />
+      </div>
+    )
   return (
     <div className={'weather'}>
       <div>
@@ -86,18 +105,17 @@ const WeatherInfos = () => {
           </div>
         )}
         {page === 0 && (
-         <div className=' d-flex justify-content-end'>
-          <button className='' onClick={nextPage}>
-            Next
-          </button>
+          <div className=' d-flex justify-content-end'>
+            <button className='' onClick={nextPage}>
+              Next
+            </button>
           </div>
         )}
       </div>
 
-      {/* {console.log(weatherData.ForecastData)} */}
-      <section className='d-flex justify-content-between'>
+      <section className='d-flex justify-content-center'>
         {weatherState.map((value, i) => (
-          <div key={i}>
+          <div key={i} className='m-3'>
             <WeatherInfo value={value} currentTemp={currentTemp} />
           </div>
         ))}
