@@ -5,7 +5,7 @@ import LoadingAction from '../redux/actions/loadingActions'
 import { dateConverter } from '../helpers/dateConverter'
 import { averageTemperature } from '../helpers/averageTemperature'
 import { temperatureConverter } from '../helpers/temperatureConverter'
-import { RiCelsiusFill , RiFahrenheitFill} from 'react-icons/ri'
+import { RiCelsiusFill, RiFahrenheitFill } from 'react-icons/ri'
 import './weather.style.css'
 
 const WeatherInfo = ({ value, currentTemp }) => {
@@ -20,11 +20,13 @@ const WeatherInfo = ({ value, currentTemp }) => {
       }}
     >
       <div>
-        <h3>{dateConverter(value[0].dt).dateFormat}</h3>
         <h6>
-          avg: {averageTemperature(value)[currentTemp]}
+          Temp: {' '}
+          {averageTemperature(value)[currentTemp]}
           {currentTemp === 'c' ? <RiCelsiusFill /> : <RiFahrenheitFill />}
         </h6>
+        <h6>Date: {' '} 
+          {dateConverter(value[0].dt).dateFormat}</h6>
 
         {showMore ? (
           <>
