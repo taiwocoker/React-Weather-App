@@ -4,13 +4,14 @@ import { temperatureConverter } from './temperatureConverter'
  * @param {object[]} resolveResponseWeatherData -  Resolved response Object from api
  * @return {k: number, c: number, f: number}
  */
-const averageTempeture = (resolveResponseWeatherData) => {
-  const ans = resolveResonseWeatherData.reduce((acc, cur) => {
-    acc += cur.tempKev
-    return acc
-  }, 0)
+export const averageTemperature = (resolveResponseWeatherData = []) => {
+  const ans =
+    resolveResponseWeatherData.reduce((acc, cur) => {
+      acc += cur?.tempKev || 0
+      return acc
+    }, 0) / resolveResponseWeatherData.length
   return {
-    k: ans,
+    k: (ans || 0).toFixed(1),
     c: temperatureConverter(ans, true),
     f: temperatureConverter(ans),
   }

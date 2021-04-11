@@ -2,7 +2,7 @@ import { dateConverter } from './dateConverter'
 import { temperatureConverter } from './temperatureConverter'
 /**
  * Reshapes response object from open weather api for this app
- * @param {object} response
+ * @param {object} response - response from openweather api
  * @returns {object}
  */
 export const resolveResponse = (response) => {
@@ -12,10 +12,10 @@ export const resolveResponse = (response) => {
       const _pos = dateConverter(cur.dt).calDate()
       acc[_pos] = []
       for (let x of arr) {
-        // check date match, then group
+        // check if date match, then group
         if (dateConverter(x.dt).calDate() === dateConverter(cur.dt).calDate()) {
           acc[_pos].push({
-            tempkev: x.main.temp,
+            tempKev: x.main.temp,
             tempCel: temperatureConverter(x.main.temp, true),
             tempFahr: temperatureConverter(x.main.temp),
             ...x,
