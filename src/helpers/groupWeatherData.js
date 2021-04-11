@@ -7,7 +7,7 @@ import { temperatureConverter } from './temperatureConverter'
  */
 export const resolveResponse = (response) => {
   try {
-    const { cod, message, cnt, city, list } = response
+    const { list } = response
     const _list = list.reduce((acc, cur, i, arr) => {
       const _pos = dateConverter(cur.dt).calDate()
       acc[_pos] = []
@@ -24,13 +24,7 @@ export const resolveResponse = (response) => {
       }
       return acc
     }, {})
-    return {
-      cod,
-      message,
-      cnt,
-      list: _list,
-      city,
-    }
+    return _list
   } catch (e) {
     // throw new Error('No Response object found!!')
     return {}
