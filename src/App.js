@@ -1,15 +1,13 @@
-import React, { Suspense, lazy } from 'react'
+import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import WeatherInfos from './components/weatherInfos'
 
-const WeatherInfo = lazy(() => import('./components/weatherInfo'))
 
 function App() {
   return (
     <>
-      <Suspense fallback={'loading...'}>
-        <WeatherInfo />
-      </Suspense>
+        <WeatherInfos />
       <ToastContainer autoClose={3000} hideProgressBar />
     </>
   )
