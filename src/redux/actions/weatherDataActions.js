@@ -8,10 +8,10 @@ export const loadWeatherSuccess = (weatherData) => ({
   weatherData,
 })
 
-function loadWeatherData() {
+function loadWeatherData(city) {
   return async (dispatch) => {
     try {
-      const data = await weatherDataApi()
+      const data = await weatherDataApi(city)
       if (data) {
         let outputData = []
         for (const i in data) {
