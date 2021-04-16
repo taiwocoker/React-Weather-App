@@ -5,6 +5,7 @@ import WeatherInfos from './components/weatherInfos'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './helpers/theme'
 
+
 function App() {
   return (
     <>
