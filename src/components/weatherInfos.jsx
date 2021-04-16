@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 import LoadingAction from '../redux/actions/loadingActions'
 import { Paginate } from '../helpers/Pagination'
+import { RiCelsiusFill, RiFahrenheitFill } from 'react-icons/ri'
+import { temperatureConverter } from '../helpers/temperatureConverter'
 import BarChart from './bar'
 import {
   Chart,
@@ -55,19 +57,9 @@ const useStyles = makeStyles((theme) =>
   })
 )
 
-const data = [
-  { year: '1950', population: 2.525 },
-  { year: '1960', population: 3.018 },
-  { year: '1970', population: 3.682 },
-  { year: '1980', population: 4.44 },
-  { year: '1990', population: 5.31 },
-  { year: '2000', population: 6.127 },
-  { year: '2010', population: 6.93 },
-]
-
 const WeatherInfos = () => {
   const [currentTemp, setCurrentTemp] = useState('f')
-  const [bar, setBar] = useState([{time:'', temperature:''}])
+  const [bar, setBar] = useState([{ time: '', temperature: '' }])
   const dispatch = useDispatch()
   const weatherData = useSelector(({ ForecastData, Loading }) => ({
     ForecastData,
@@ -77,17 +69,18 @@ const WeatherInfos = () => {
   const [page, setPage] = useState(0)
   const [rawPagination, setRawPagination] = useState([])
   const [barChange, setBarChange] = useState(0)
+  const [city, setCity] = useState('Munich')
+  const searchValue = useRef('')
 
   useEffect(() => {
-    dispatch(WeatherDataAction())
-  }, [])
+    dispatch(WeatherDataAction(city))
+  }, [city])
 
-  const handleClick = (number) =>{
-    if(page === 0){
+  const handleClick = (number) => {
+    if (page === 0) {
       setBarChange(number)
-    }
-    else{
-      setBarChange(number+3)
+    } else {
+      setBarChange(number + 3)
     }
   }
   useEffect(() => {
@@ -95,15 +88,14 @@ const WeatherInfos = () => {
       setRawPagination(Paginate(weatherData.ForecastData))
       setWeatherState(Paginate(weatherData.ForecastData)[page])
       let s = weatherData.ForecastData[barChange]
-      let coker = []
       const newS = s.map((res, idx) => {
-       return ({time: res.dt_txt.split(' ')[1], temperature: res.tempKev})
+        return {
+          time: res.dt_txt.split(' ')[1],
+          temperature: res.tempKev,
+        }
       })
-      console.log(newS)
       setBar([...newS])
       console.log(bar)
-      console.log(weatherData.ForecastData)
-
     }
   }, [weatherData.ForecastData, barChange])
   useEffect(() => {
@@ -127,6 +119,11 @@ const WeatherInfos = () => {
       }
       return prevPage
     })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setCity(searchValue.current.value)
   }
 
   const classes = useStyles()
@@ -208,6 +205,17 @@ const WeatherInfos = () => {
               </RadioGroup>
             </FormControl>
 
+            <form onSubmit={handleSubmit}>
+              <input
+                type='text'
+                placeholder='Enter City'
+                ref={searchValue}
+                required
+              />
+
+              <button type='submit'>Go</button>
+            </form>
+
             <div className='my-5 d-flex'>
               {page > 0 && (
                 <div className=' d-flex justify-content-start'>
@@ -229,12 +237,16 @@ const WeatherInfos = () => {
             <section className={classes.root}>
               {weatherState.map((value, i) => (
                 <Paper elevation={5} key={i}>
-                  <WeatherInfo value={value} currentTemp={currentTemp} click={() =>handleClick(i)}/>
+                  <WeatherInfo
+                    value={value}
+                    currentTemp={currentTemp}
+                    click={() => handleClick(i)}
+                  />
                 </Paper>
               ))}
             </section>
 
-            <BarChart data={bar}/>
+            <BarChart data={bar} />
             {/* </section> */}
           </Grid>
         </Container>
