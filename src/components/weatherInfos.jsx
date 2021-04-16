@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 import LoadingAction from '../redux/actions/loadingActions'
 import { Paginate } from '../helpers/Pagination'
-import BarChart from './empty'
+import BarChart from './bar'
 import {
   Chart,
   BarSeries,
@@ -83,7 +83,12 @@ const WeatherInfos = () => {
   }, [])
 
   const handleClick = (number) =>{
-    setBarChange(number)
+    if(page === 0){
+      setBarChange(number)
+    }
+    else{
+      setBarChange(number+3)
+    }
   }
   useEffect(() => {
     if (weatherData.ForecastData) {
@@ -92,11 +97,12 @@ const WeatherInfos = () => {
       let s = weatherData.ForecastData[barChange]
       let coker = []
       const newS = s.map((res, idx) => {
-       return ({time: 1995+idx, temperature:res.tempKev})
+       return ({time: res.dt_txt.split(' ')[1], temperature: res.tempKev})
       })
       console.log(newS)
-      setBar(newS)
+      setBar([...newS])
       console.log(bar)
+      console.log(weatherData.ForecastData)
 
     }
   }, [weatherData.ForecastData, barChange])
