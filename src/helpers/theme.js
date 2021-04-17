@@ -1,15 +1,14 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles';
+import { blue, grey } from '@material-ui/core/colors';
 
-const purple = '#701d65'
-const lilac = '#FFF0FE'
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: purple,
+      main: blue[500],
     },
     secondary: {
-      main: lilac,
+      main: grey[300],
     },
     background: {
       default: '#FAFBFE',
@@ -20,4 +19,4 @@ const theme = createMuiTheme({
   },
 })
 
-export default theme
+export default theme;
