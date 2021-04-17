@@ -1,9 +1,0 @@
-
-.weather-extra {
-    max-height: 0;
-    overflow: hidden;
-}
-
-.weather-extra--active{
-    max-height: 800px;
-}

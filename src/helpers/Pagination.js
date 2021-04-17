@@ -7,3 +7,24 @@ export const Paginate = (infos) => {
   })
   return newinfos
 }
+
+export const nextPage = (setPage, rawPagination) => {
+  setPage((oldPage) => {
+    let nextPage = oldPage + 1
+    if (nextPage > rawPagination.length - 1) {
+      nextPage = 0
+    }
+    return nextPage
+  })
+}
+
+export const prevPage = (setPage, rawPagination) => {
+  setPage((oldPage) => {
+    let prevPage = oldPage - 1
+    if (prevPage < 0) {
+      prevPage = rawPagination.length - 1
+    }
+    return prevPage
+  })
+}
+
