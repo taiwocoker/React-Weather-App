@@ -8,7 +8,7 @@ export const Paginate = (infos) => {
   return newinfos
 }
 
-export const nextPage = (setPage, rawPagination) => {
+export const NextPage = (setPage, rawPagination) => {
   setPage((oldPage) => {
     let nextPage = oldPage + 1
     if (nextPage > rawPagination.length - 1) {
@@ -18,7 +18,7 @@ export const nextPage = (setPage, rawPagination) => {
   })
 }
 
-export const prevPage = (setPage, rawPagination) => {
+export const PrevPage = (setPage, rawPagination) => {
   setPage((oldPage) => {
     let prevPage = oldPage - 1
     if (prevPage < 0) {
