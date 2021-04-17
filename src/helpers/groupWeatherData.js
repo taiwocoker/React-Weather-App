@@ -26,7 +26,7 @@ export const resolveResponse = (response) => {
     }, {})
     return _list
   } catch (e) {
-    // throw new Error('No Response object found!!')
+    
     return {}
   }
 }
