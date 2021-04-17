@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 
@@ -6,6 +6,7 @@ import { Paginate, NextPage, PrevPage } from '../helpers/Pagination'
 import BarChart from './bar'
 import WeatherCard from './WeatherCard'
 import {
+  Hidden,
   Radio,
   TextField,
   RadioGroup,
@@ -43,11 +44,11 @@ const Weather = () => {
   const [rawPagination, setRawPagination] = useState([])
   const [barChange, setBarChange] = useState(0)
   const [city, setCity] = useState('Munich')
-  const searchValue = useRef('')
+
 
   useEffect(() => {
     dispatch(WeatherDataAction(city))
-  }, [city])
+  }, [])
 
   const handleClick = (number) => {
     if (page === 0) {
@@ -76,8 +77,13 @@ const Weather = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setCity(searchValue.current.value)
+    dispatch(WeatherDataAction(city))
   }
+
+  const handleChange = (e) => {
+    setCity(e.target.value)
+  };
+
 
   const classes = useStyles()
 
@@ -93,7 +99,7 @@ const Weather = () => {
       className={classes.root}
     >
       <Container maxWidth='lg'>
-        <Grid container item direction='column'>
+        <Grid container item direction='column' xs={12}>
           <FormControl component='fieldset'>
             <RadioGroup aria-label='gender' name='gender1' row>
               <Box
@@ -134,8 +140,8 @@ const Weather = () => {
                 <TextField
                   id='standard-basic'
                   label='Enter a city'
-                  defaultValue={city}
-                  ref={searchValue}
+                  value={city}
+                  onChange={(e)=>handleChange(e)}
                   required
                 />
 
@@ -145,6 +151,7 @@ const Weather = () => {
                   className={classes.button}
                   endIcon={<Search>search</Search>}
                   size='large'
+                  type='submit'
                 >
                   Go
                 </Button>
@@ -165,9 +172,13 @@ const Weather = () => {
               />
             ))}
           </Box>
+
+            <Hidden xsDown>
           <Box mb='2rem'>
+
             <BarChart data={bar} />
           </Box>
+            </Hidden>
         </Grid>
       </Container>
     </Grid>

@@ -24,6 +24,8 @@ function loadWeatherData(city) {
         dispatch(LoadingAction(false))
       }
     } catch (error) {
+      dispatch(loadWeatherSuccess(null))
+      dispatch(LoadingAction(false))
       toast.error(`Whoops!, ${error.message} occured`)
     }
   }
