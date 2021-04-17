@@ -1,7 +1,7 @@
 import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Weather from './components/weather'
+import Weather from './components/Weather'
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './helpers/theme'
 
