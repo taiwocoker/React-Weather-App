@@ -6,6 +6,7 @@ import { Paginate, NextPage, PrevPage } from '../helpers/Pagination'
 import BarChart from './bar'
 import WeatherCard from './WeatherCard'
 import {
+  Hidden,
   Radio,
   TextField,
   RadioGroup,
@@ -98,7 +99,7 @@ const Weather = () => {
       className={classes.root}
     >
       <Container maxWidth='lg'>
-        <Grid container item direction='column'>
+        <Grid container item direction='column' xs={12}>
           <FormControl component='fieldset'>
             <RadioGroup aria-label='gender' name='gender1' row>
               <Box
@@ -171,9 +172,13 @@ const Weather = () => {
               />
             ))}
           </Box>
+
+            <Hidden xsDown>
           <Box mb='2rem'>
+
             <BarChart data={bar} />
           </Box>
+            </Hidden>
         </Grid>
       </Container>
     </Grid>
