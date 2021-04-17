@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 
-import { Paginate, nextPage, prevPage } from '../helpers/pagination'
+import { Paginate, NextPage, PrevPage } from '../helpers/pagination'
 import BarChart from './bar'
 import WeatherCard from './WeatherCard'
 import {
@@ -74,7 +74,6 @@ const Weather = () => {
     if (rawPagination.length > 0) setWeatherState(rawPagination[page])
   }, [page])
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
     setCity(searchValue.current.value)
@@ -82,8 +81,7 @@ const Weather = () => {
 
   const classes = useStyles()
 
-  if (weatherData.Loading)
-    return <LoadingScreen />
+  if (weatherData.Loading) return <LoadingScreen />
   return (
     <Grid
       item
@@ -123,13 +121,13 @@ const Weather = () => {
                   checked={currentTemp === 'f'}
                   onChange={() => setCurrentTemp('f')}
                 />
-                </Box>
-              </RadioGroup>
-            </FormControl>
-<PaginationControls
+              </Box>
+            </RadioGroup>
+          </FormControl>
+          <PaginationControls
             page={page}
-            nextPage={() => nextPage(setPage, rawPagination)}
-            prevPage={() => prevPage(setPage, rawPagination)}
+            nextPage={() => NextPage(setPage, rawPagination)}
+            prevPage={() => PrevPage(setPage, rawPagination)}
           >
             <form onSubmit={handleSubmit}>
               <Box display='flex' alignItems='center'>
@@ -153,27 +151,26 @@ const Weather = () => {
               </Box>
             </form>
           </PaginationControls>
-            <Box
+          <Box
             alignItems='center'
             display='flex'
             justifyContent='space-between'
           >
-              {weatherState.map((value, index) => (
-                
-                  <WeatherCard
-                  key={value.dt_txt}
-                    value={value}
-                    currentTemp={currentTemp}
-                    click={() => handleClick(index)}
-                  />
-              ))}
-            </Box>
-<Box mb='2rem'>
+            {weatherState.map((value, index) => (
+              <WeatherCard
+                key={value.dt_txt}
+                value={value}
+                currentTemp={currentTemp}
+                click={() => handleClick(index)}
+              />
+            ))}
+          </Box>
+          <Box mb='2rem'>
             <BarChart data={bar} />
-            </Box>
-          </Grid>
-        </Container>
-      </Grid>
+          </Box>
+        </Grid>
+      </Container>
+    </Grid>
   )
 }
 export default Weather
