@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
 
-import { Paginate, NextPage, PrevPage } from '../helpers/pagination'
+import { Paginate, NextPage, PrevPage } from '../helpers/Pagination'
 import BarChart from './bar'
 import WeatherCard from './WeatherCard'
 import {
