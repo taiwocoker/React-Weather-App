@@ -1,4 +1,4 @@
-import { handleResponse, handleError } from './apiUtils';
+import { handleResponse, handleError } from './apiUtils'
 
 const getWeatherData = async (city) =>
   fetch(
@@ -8,4 +8,4 @@ const getWeatherData = async (city) =>
     .then(handleResponse)
     .catch(handleError)
 
-export default getWeatherData;
+export default getWeatherData
