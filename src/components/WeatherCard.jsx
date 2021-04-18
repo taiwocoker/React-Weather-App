@@ -43,10 +43,10 @@ const WeatherCard = ({ value, currentTemp, click }) => {
               {showMore && (
                 <CardActionArea>
                   <Typography variant='body1'>
-                    {value[0].weather[0].main}
+                    main: {value[0].weather[0].main}
                   </Typography>
                   <Typography variant='body1'>
-                    {value[0].weather[0].description.toUpperCase()}
+                    Desc: {value[0].weather[0].description.toUpperCase()}
                   </Typography>
                 </CardActionArea>
               )}

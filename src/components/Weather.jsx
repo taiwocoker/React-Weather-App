@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import WeatherDataAction from '../redux/actions/weatherDataActions'
+import { temperatureConverter } from '../helpers/temperatureConverter'
 
 import { Paginate, NextPage, PrevPage } from '../helpers/Pagination'
 import BarChart from './bar'
@@ -65,12 +66,13 @@ const Weather = () => {
       const newS = s.map((res, idx) => {
         return {
           time: res.dt_txt.split(' ')[1],
-          temperature: res.tempKev,
+          // temperature: res.tempKev,
+          temperature: Number(temperatureConverter(res.tempKev, currentTemp === 'c')),
         }
       })
       setBar([...newS])
     }
-  }, [weatherData.ForecastData, barChange])
+  }, [weatherData.ForecastData, barChange, currentTemp])
   useEffect(() => {
     if (rawPagination.length > 0) setWeatherState(rawPagination[page])
   }, [page])
