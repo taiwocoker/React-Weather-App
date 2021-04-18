@@ -29,6 +29,14 @@ const useStyles = makeStyles((theme) =>
     root: {
       backgroundColor: theme.palette.secondary.main,
     },
+    cardWrapper: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginBottom: '1.5rem',
+      [theme.breakpoints.down('sm')]: {
+        flexDirection: 'column',
+      },
+    },
   })
 )
 
@@ -137,37 +145,35 @@ const Weather = () => {
             nextPage={() => NextPage(setPage, rawPagination)}
             prevPage={() => PrevPage(setPage, rawPagination)}
           >
-            <form onSubmit={handleSubmit}>
-              <Box display='flex' alignItems='center'>
-                <TextField
-                  id='standard-basic'
-                  label='Enter a city'
-                  value={city}
-                  onChange={(e)=>handleChange(e)}
-                  required
-                />
+            <Hidden smDown>
+              <form onSubmit={handleSubmit}>
+                <Box display='flex' alignItems='center'>
+                  <TextField
+                    id='standard-basic'
+                    label='Enter a city'
+                    value={city}
+                    onChange={(e) => handleChange(e)}
+                    required
+                  />
 
-                <Button
-                  variant='contained'
-                  color='primary'
-                  className={classes.button}
-                  endIcon={<Search>search</Search>}
-                  size='large'
-                  type='submit'
-                >
-                  Go
-                </Button>
-              </Box>
-            </form>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    className={classes.button}
+                    endIcon={<Search>search</Search>}
+                    size='large'
+                    type='submit'
+                  >
+                    Go
+                  </Button>
+                </Box>
+              </form>
+            </Hidden>
           </PaginationControls>
-          <Box
-            alignItems='center'
-            display='flex'
-            justifyContent='space-between'
-          >
+          <Box className={classes.cardWrapper}>
             {weatherState.map((value, index) => (
               <WeatherCard
-                key={value.dt_txt}
+                key={value.index}
                 value={value}
                 currentTemp={currentTemp}
                 click={() => handleClick(index)}
@@ -175,12 +181,9 @@ const Weather = () => {
             ))}
           </Box>
 
-            <Hidden xsDown>
           <Box mb='2rem'>
-
-            <BarChart data={bar} />
+            <BarChart data={bar} currentTemp={currentTemp} />
           </Box>
-            </Hidden>
         </Grid>
       </Container>
     </Grid>
