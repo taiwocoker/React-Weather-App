@@ -8,20 +8,26 @@ import {
   Card,
   CardContent,
   CardActions,
-  
-} from '@material-ui/core';
+  createStyles,
+} from '@material-ui/core'
 import { dateConverter } from '../helpers/dateConverter'
 import { averageTemperature } from '../helpers/averageTemperature'
 import { RiCelsiusFill, RiFahrenheitFill } from 'react-icons/ri'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>
+  createStyles({
   root: {
     width: '32%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginBottom: '1rem',
+    },
   },
   title: {
     fontSize: 14,
   },
-})
+}),
+);
 
 const WeatherCard = ({ value, currentTemp, click }) => {
   const [showMore, setShowMore] = useState(false)

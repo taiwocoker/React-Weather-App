@@ -9,26 +9,26 @@ import {
 
 import { Animation } from '@devexpress/dx-react-chart'
 
-// let makeLabel = (symbol, color) => ({ text, style, currentTemp }) => (
-//   <ValueAxis.Label
-//     text={`${text} ${symbol}`}
-//     style={{
-//       fill: color,
-//       ...style,
-//     }}
-//   />
-// )
-// let PriceLabel = makeLabel(currentTemp)
+let makeLabel = (symbol, color) => ({ text, style, ...restProps }) => (
+  <ValueAxis.Label
+    text={`${text} ${symbol}`}
+    style={{
+      fill: color,
+      ...style,
+    }}
+    {...restProps}
+  />
+)
 
 
-const BarChart = ({ data }) => {
-  
+const BarChart = ({ data, currentTemp }) => {
+  const PriceLabel = makeLabel(currentTemp)
   console.log(data)
   return (
     <Paper>
       <Chart data={data}>
         <ArgumentAxis />
-        <ValueAxis max={7} />
+        <ValueAxis max={7} labelComponent={PriceLabel} />
         {/* labelComponent={PriceLabel} */}
         <BarSeries valueField='temperature' argumentField='time' />
         {data && <Animation />}
