@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) =>
         flexDirection: 'column',
       },
     },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: '5ch',
+    },
   })
 )
 
@@ -140,34 +145,59 @@ const Weather = () => {
               </Box>
             </RadioGroup>
           </FormControl>
+          <div>
+            <Hidden mdUp>
+            <form onSubmit={handleSubmit}>
+              <Box display='flex' alignItems='center'>
+                <TextField
+                  id='standard-basic'
+                  label='Enter a city'
+                  value={city}
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
+
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={classes.button}
+                  endIcon={<Search>search</Search>}
+                  size='large'
+                  type='submit'
+                >GO</Button>
+              </Box>
+            </form>
+            </Hidden>
+          </div>
           <PaginationControls
             page={page}
             nextPage={() => NextPage(setPage, rawPagination)}
             prevPage={() => PrevPage(setPage, rawPagination)}
           >
             <Hidden smDown>
-              <form onSubmit={handleSubmit}>
-                <Box display='flex' alignItems='center'>
-                  <TextField
-                    id='standard-basic'
-                    label='Enter a city'
-                    value={city}
-                    onChange={(e) => handleChange(e)}
-                    required
-                  />
+            <form onSubmit={handleSubmit}>
+              <Box display='flex' alignItems='center'>
+                <TextField
+                  id='standard-basic'
+                  label='Enter a city'
+                  // className={classes.textField}
+                  value={city}
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
 
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    className={classes.button}
-                    endIcon={<Search>search</Search>}
-                    size='large'
-                    type='submit'
-                  >
-                    Go
+                <Button
+                  variant='contained'
+                  color='primary'
+                  className={classes.button}
+                  endIcon={<Search>search</Search>}
+                  size='large'
+                  type='submit'
+                >
+                  GO
                   </Button>
-                </Box>
-              </form>
+              </Box>
+            </form>
             </Hidden>
           </PaginationControls>
           <Box className={classes.cardWrapper}>
