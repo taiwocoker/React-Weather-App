@@ -1,8 +1,8 @@
 import WeatherReducer from '../../../redux/reducers/weatherDataReducer'
 import * as WeatherActions from '../../../redux/actions/weatherDataActions'
 
-describe('House Reducer', () => {
-  it('should update redux state house when passed SET_HOUSE', () => {
+describe('Weather Reducer', () => {
+  it('should update redux state house when passed SET_WEATHER_DATA', () => {
     // arrange
     const initialState = { loading: true, weatherData: null }
     const weatherData = {
